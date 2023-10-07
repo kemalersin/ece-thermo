@@ -1,0 +1,37 @@
+<ion-content [fullscreen]="true" scroll-y="false">
+  <swiper-container [modules]="swiperModules" pagination="true" (slidechange)="onSlideChange($event)">
+    <swiper-slide>
+      <div class="slide slide-1">
+        <div class="mask mask-1"></div>
+        <div [hidden]="!isActive(0)" class="text-container animate__animated animate__fadeIn animate__slow">
+          <h1>Hoşgeldiniz</h1>
+          <p>
+            <b>Ece Thermo</b> ile bebeğinizin uyku durumunu ve vücut ısısını
+            izleyebilir, önemli değişiklikleri bildirim alırsınız.
+          </p>
+        </div>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <div class="slide slide-2">
+        <div class="mask mask-1"></div>
+        <div [hidden]="!isActive(1)" class="text-container animate__animated animate__fadeIn animate__slow">
+          <h1>Başlarken</h1>
+          <p>
+            İzleme cihazınıza bağlanmak için bluetooth açık olmalıdır. Giriş
+            yaptıktan sonra uygulamayı kullanabilirsiniz.
+          </p>
+        </div>
+      </div>
+    </swiper-slide>
+    <swiper-slide>
+      <div class="slide slide-3">
+        <div class="start" [hidden]="!isActive(2)">
+          <img src="/assets/slides/slide-3-1.png" class="left animate__animated animate__fadeInLeft animate__fast" />
+          <img src="/assets/slides/slide-3-2.png" class="right animate__animated animate__fadeInRight animate__fast" />
+          <ion-button fill="outline" color="light" shape="round" class="ion-margin-top animate__animated animate__fadeInUp" routerLink="/login">Hadi Başlayalım</ion-button>
+        </div>
+      </div>
+    </swiper-slide>
+  </swiper-container>
+</ion-content>

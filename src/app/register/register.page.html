@@ -1,0 +1,97 @@
+<ion-content [fullscreen]="true">
+  <ion-card class="animate__animated animate__zoomIn animate__faster">
+    <ion-card-header class="ion-text-center"
+      ><ion-img class="logo" src="/assets/images/logo-register-1.png"></ion-img
+    ></ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-item class="ion-no-padding">
+              <ion-input
+                type="text"
+                label="Ad"
+                labelPlacement="floating"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-input
+                type="text"
+                label="Soyad"
+                labelPlacement="floating"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-input
+                type="text"
+                label="Doğum Tarihi"
+                labelPlacement="floating"
+                required
+                (ionFocus)="openCalendar()"
+              ></ion-input>
+              <ion-datetime-button datetime="birthdate"></ion-datetime-button>
+              <ion-modal
+                [keepContentsMounted]="true"
+                [isOpen]="showCalendar"
+                (didDismiss)="cancelCalendar()"
+              >
+                <ng-template>
+                  <ion-datetime
+                    id="birthdate"
+                    presentation="date"
+                  ></ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-input
+                type="email"
+                label="E-Posta"
+                labelPlacement="floating"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-input
+                type="password"
+                label="Parola"
+                labelPlacement="floating"
+                required
+              ></ion-input>
+            </ion-item>
+            <ion-item class="ion-no-padding">
+              <ion-input
+                type="password"
+                label="Tekrar Parola"
+                labelPlacement="floating"
+                required
+              ></ion-input>
+            </ion-item>
+            <div class="ion-padding-top">
+              <ion-button
+                type="submit"
+                class="ion-margin-top"
+                expand="block"
+                shape="round"
+                >Gönder</ion-button
+              >
+            </div>
+            <div>
+              <ion-button
+                class="ion-margin-top"
+                expand="block"
+                fill="outline"
+                shape="round"
+                routerLink="/login"
+                routerDirection="back"
+                >Giriş Yap</ion-button
+              >
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

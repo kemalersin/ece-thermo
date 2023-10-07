@@ -1,0 +1,7 @@
+{
+  "name": "Ece Thermo",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
