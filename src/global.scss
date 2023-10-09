@@ -45,6 +45,23 @@ app-forgot-password {
   }
 }
 
+.horizontal-center,
+.vertical-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.horizontal-center {
+  flex-direction: row;
+  width: 100%;
+}
+
+.vertical-center {
+  flex-direction: column;
+  height: 100%;
+}
+
 swiper-container {
   width: 100%;
   height: 100%;

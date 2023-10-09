@@ -7,13 +7,14 @@ import { IonRouterOutlet } from '@ionic/angular';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  public searching: boolean = false;
+
   public appPages = [
-    { title: 'Inbox', url: '/folder/inbox', icon: 'mail' },
-    { title: 'Outbox', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Favorites', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Archived', url: '/folder/archived', icon: 'archive' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
+    { title: 'Cihaz', url: '/folder/inbox', icon: 'device' },
+    { title: 'Geçmiş', url: '/folder/outbox', icon: 'history' },
+    { title: 'Ayarlar', url: '/folder/favorites', icon: 'settings' },
+    { title: 'Yardım', url: '/folder/archived', icon: 'help' },
+    { title: 'Hesap', url: '/folder/trash', icon: 'profile' },
   ];
 
   constructor(private routerOutlet: IonRouterOutlet) {
@@ -28,6 +29,12 @@ export class HomePage implements OnInit {
 
   ionViewWillLeave() {
     this.routerOutlet.swipeGesture = true;
+  }
+
+  search() {
+    this.searching = true;
+
+    setTimeout(() => this.searching = false, 1500);
   }
 
 }
