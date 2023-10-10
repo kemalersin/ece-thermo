@@ -30,8 +30,8 @@
       </ion-list>
 
       <div class="logo">
-      <img src="/assets/images/alpha-1.png" width="125" />
-    </div>
+        <img src="/assets/images/alpha-1.png" width="125" />
+      </div>
     </ion-content>
   </ion-menu>
 
@@ -44,10 +44,56 @@
         <ion-buttons slot="start">
           <ion-menu-button></ion-menu-button>
         </ion-buttons>
+        <ion-buttons slot="end" *ngIf="connected">
+          <img src="/assets/images/icon-config-96.png" height="18" />
+          <img src="/assets/images/battery-1.png" height="18" />
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 
-    <div class="vertical-center animate__animated animate__fadeIn">
+    <div class="monitor" *ngIf="connected">
+      <div class="position vertical-center animate__animated animate__fadeIn animate__slower">
+        <div class="position-1 vertical-center animate__animated animate__fadeIn" *ngIf="onStomach">
+          <img
+            src="/assets/images/position-1.png"
+            height="180"
+            class="animate__animated animate__pulse animate__slower animate__infinite"
+          />
+          <ion-text color="medium"><h1>Yüzüstü Uyuyor</h1></ion-text>
+        </div>
+
+        <div class="position-2 vertical-center animate__animated animate__fadeIn" *ngIf="!onStomach">
+          <img
+            src="/assets/images/position-2.png"
+            height="180"
+            class="animate__animated animate__pulse animate__slower animate__infinite"
+          />
+          <ion-text color="medium"><h1>Sırtüstü Uyuyor</h1></ion-text>
+        </div>        
+      </div>
+
+      <div class="bottom horizontal-center ion-padding animate__animated animate__fadeInUp">
+        <div class="movement vertical-center">
+          <ion-chip color="secondary" class="animate__animated animate__fadeInLeft">Hareket</ion-chip>
+          <div class="horizontal-center animate__animated animate__fadeInLeft">
+            <ion-text color="secondary"><h1>{{ movement }}</h1></ion-text>
+            <ion-text color="medium"> / dk</ion-text>
+          </div>
+        </div>
+        <div class="temp vertical-center">
+          <ion-chip  [color]="tempNum < 37 ? 'success' : 'warning'" class="animate__animated animate__fadeInRight">Vücut Isısı</ion-chip>
+          <div class="horizontal-center animate__animated animate__fadeInRight">
+            <ion-text [color]="tempNum < 37 ? 'success' : 'warning'"><h1>{{ temp }}</h1></ion-text>
+            <ion-text color="medium"> C°</ion-text>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="vertical-center animate__animated animate__fadeIn"
+      *ngIf="!connected"
+    >
       <img
         src="/assets/images/no-device-1.png"
         height="96"
@@ -65,40 +111,42 @@
           >Ekle</ion-button
         >
       </p>
-    </div>
 
-    <ion-modal
-      trigger="open-modal"
-      [initialBreakpoint]="1"
-      [breakpoints]="[0, 1]"
-    >
-      <ng-template>
-        <div class="block">
-          <img
-            *ngIf="searching"
-            src="/assets/images/bluetooth-search-1.gif"
-            width="100%"
-          />
+      <ion-modal
+        #modal
+        trigger="open-modal"
+        [initialBreakpoint]="1"
+        [breakpoints]="[0, 1]"
+      >
+        <ng-template>
+          <div class="block">
+            <img
+              *ngIf="searching"
+              src="/assets/images/bluetooth-search-1.gif"
+              width="100%"
+            />
 
-          <div class="vertical-center" *ngIf="!searching">
-            <ion-avatar class="animate__animated animate__bounceIn">
-              <img src="/assets/images/baby-1.jpg" />
-            </ion-avatar>
-            <p><b>Ece Thermo</b></p>
-            <div class="horizontal-center">
-              <img src="/assets/images/battery-1.png" height="24" />
-              <small>%50</small>
+            <div class="vertical-center" *ngIf="!searching">
+              <ion-avatar class="animate__animated animate__bounceIn">
+                <img src="/assets/images/baby-1.jpg" />
+              </ion-avatar>
+              <p><b>Ece Thermo</b></p>
+              <div class="horizontal-center">
+                <img src="/assets/images/battery-1.png" height="24" />
+                <small>%50</small>
+              </div>
+              <ion-button
+                color="primary"
+                size="small"
+                fill="outline"
+                class="ion-margin-top"
+                (click)="connect()"
+                >Bağlan</ion-button
+              >
             </div>
-            <ion-button
-            color="primary"
-            size="small"
-            fill="outline"
-            class="ion-margin-top"
-            >Bağlan</ion-button
-          >
           </div>
-        </div>
-      </ng-template>
-    </ion-modal>
+        </ng-template>
+      </ion-modal>
+    </div>
   </ion-content>
 </ion-split-pane>

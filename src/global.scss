@@ -45,6 +45,17 @@ app-forgot-password {
   }
 }
 
+.mask {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  &.mask-1 {
+    opacity: 0.5;
+    background: linear-gradient(#9198e5, var(--ion-color-primary));
+  }
+}
+
 .horizontal-center,
 .vertical-center {
   display: flex;
