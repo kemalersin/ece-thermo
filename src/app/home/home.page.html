@@ -52,38 +52,72 @@
     </ion-header>
 
     <div class="monitor" *ngIf="connected">
-      <div class="position vertical-center animate__animated animate__fadeIn animate__slower">
-        <div class="position-1 vertical-center animate__animated animate__fadeIn" *ngIf="onStomach">
+      <ion-card color="light" class="notification animate__animated animate__fadeInDown animate__fast" [class.animate__fadeOutUp]="!notify">
+        <ion-card-content>
+          <ion-text
+            >Bebeğiniz uzun süre hareketsiz kaldığında ya da vücut ısısı
+            yükseldiğinde bildirim alabilirsiniz.
+          </ion-text>
+          <span class="ion-text-end">
+            <ion-button size="small" fill="outline" color="primary" (click)="hideNotification()"
+              >Bildirimleri Aç</ion-button
+            >
+          </span>
+        </ion-card-content>
+      </ion-card>
+
+      <div class="position animate__animated animate__fadeIn animate__slower">
+        <div
+          class="position-1 animate__animated animate__fadeIn"
+          *ngIf="onStomach"
+        >
           <img
             src="/assets/images/position-1.png"
             height="180"
             class="animate__animated animate__pulse animate__slower animate__infinite"
           />
-          <ion-text color="medium"><h1>Yüzüstü Uyuyor</h1></ion-text>
+          <ion-text color="medium" class="ion-text-center"
+            ><h1>Yüzüstü Uyuyor</h1></ion-text
+          >
         </div>
 
-        <div class="position-2 vertical-center animate__animated animate__fadeIn" *ngIf="!onStomach">
+        <div
+          class="position-2 animate__animated animate__fadeIn"
+          *ngIf="!onStomach"
+        >
           <img
             src="/assets/images/position-2.png"
             height="180"
             class="animate__animated animate__pulse animate__slower animate__infinite"
           />
-          <ion-text color="medium"><h1>Sırtüstü Uyuyor</h1></ion-text>
-        </div>        
+          <ion-text color="medium" class="ion-text-center"
+            ><h1>Sırtüstü Uyuyor</h1></ion-text
+          >
+        </div>
       </div>
 
-      <div class="bottom horizontal-center ion-padding animate__animated animate__fadeInUp">
-        <div class="movement vertical-center">
-          <ion-chip color="secondary" class="animate__animated animate__fadeInLeft">Hareket</ion-chip>
-          <div class="horizontal-center animate__animated animate__fadeInLeft">
+      <div class="bottom ion-padding animate__fadeInUp" [class.animate__animated]="!monitoring">
+        <div class="movement">
+          <ion-chip
+            color="secondary"
+            class="animate__animated animate__fadeInLeft"
+            >Hareket</ion-chip
+          >
+          <div class="label animate__animated animate__fadeInLeft">
             <ion-text color="secondary"><h1>{{ movement }}</h1></ion-text>
             <ion-text color="medium"> / dk</ion-text>
           </div>
         </div>
-        <div class="temp vertical-center">
-          <ion-chip  [color]="tempNum < 37 ? 'success' : 'warning'" class="animate__animated animate__fadeInRight">Vücut Isısı</ion-chip>
-          <div class="horizontal-center animate__animated animate__fadeInRight">
-            <ion-text [color]="tempNum < 37 ? 'success' : 'warning'"><h1>{{ temp }}</h1></ion-text>
+        <div class="temp">
+          <ion-chip
+            [color]="tempNum < 37 ? 'success' : 'warning'"
+            class="animate__animated animate__fadeInRight"
+            >Vücut Isısı</ion-chip
+          >
+          <div class="label animate__animated animate__fadeInRight">
+            <ion-text [color]="tempNum < 37 ? 'success' : 'warning'"
+              ><h1>{{ temp }}</h1></ion-text
+            >
             <ion-text color="medium"> C°</ion-text>
           </div>
         </div>

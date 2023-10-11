@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonRouterOutlet, ModalController } from '@ionic/angular';
 
+import { StatusBar, Style } from '@capacitor/status-bar';
+import { Platform } from '@ionic/angular';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -9,6 +12,9 @@ import { IonRouterOutlet, ModalController } from '@ionic/angular';
 export class HomePage implements OnInit {
   public searching: boolean = false;
   public connected: boolean = false;
+  public monitoring: boolean = false;
+
+  public notify: boolean = true;
   public onStomach: boolean = true;
 
   public temp: string = '36,7';
@@ -26,7 +32,12 @@ export class HomePage implements OnInit {
 
   @ViewChild('modal') modal!: ModalController;
 
-  constructor(private routerOutlet: IonRouterOutlet) {}
+  constructor(
+    private routerOutlet: IonRouterOutlet,
+    private platform: Platform
+  ) {
+    this.init();
+  }
 
   ngOnInit() {}
 
@@ -38,37 +49,55 @@ export class HomePage implements OnInit {
     this.routerOutlet.swipeGesture = true;
   }
 
+  private async init(): Promise<void> {
+    await this.platform.ready();
+
+    StatusBar.setOverlaysWebView({ overlay: false });
+    await StatusBar.setStyle({ style: Style.Light });
+    await StatusBar.setBackgroundColor({ color: '#ffffff' });
+  }
+
   search() {
     this.searching = true;
 
     setTimeout(() => (this.searching = false), 1500);
   }
 
+  hideNotification() {
+    this.notify = false;
+  }
+
   connect() {
     this.connected = true;
     this.modal.dismiss();
 
-    setInterval(() => {
-      const rnd: number = Math.floor(Math.random() * 10) + 1;
-      const move: boolean = !!(rnd % 2);
+    setTimeout(() => (this.monitoring = true), 1000);
 
-      if (this.onStomach !== move) {
-        this.movement++;
-      }
+    setTimeout(() => {
+      this.onStomach = false;
 
-      this.onStomach = move;
-    }, 5000);
+      setInterval(() => {
+        const rnd: number = Math.floor(Math.random() * 10) + 1;
+        const move: boolean = !!(rnd % 2);
+
+        if (this.onStomach !== move) {
+          this.movement++;
+        }
+
+        this.onStomach = move;
+      }, 5000);
+    }, 3000);
 
     setInterval(() => {
       const min: number = 36.7;
       const max: number = 37.4;
 
-      this.tempNum = Math.random() < 0.5
-      ? (1 - Math.random()) * (max - min) + min
-      : Math.random() * (max - min) + min;
+      this.tempNum =
+        Math.random() < 0.5
+          ? (1 - Math.random()) * (max - min) + min
+          : Math.random() * (max - min) + min;
 
-      this.temp =
-        this.tempNum.toFixed(1).replace('.', ',');
+      this.temp = this.tempNum.toFixed(1).replace('.', ',');
     }, 3000);
   }
 }
